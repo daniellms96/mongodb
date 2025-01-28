@@ -1,16 +1,31 @@
-// Using Node.js `require()`
 const mongoose = require('mongoose');
-const { buscaPrimero, buscaTodos, buscaPorId, buscaPrecioMayor } = require('./models/ordenador');
+const {
+  buscaPrimero,
+  buscaTodos,
+  buscaPorId,
+  buscaPrecioMayor,
+  creaOrdenador,
+  actualizaOrdenador,
+  eliminaOrdenador,
+  insertaOrdenadores,
+} = require('./models/ordenador'); // Ruta ajustada
 
 // Conexión a la base de datos.
 mongoose.connect('mongodb+srv://daniellomas116:E3fYYVVm5XrfUOJj@cluster0.aqra3.mongodb.net/almacen')
   .then(() => {
     console.log('Connected!');
-    // Llamar a las funciones aquí, por ejemplo:
-    const idBuscado = '6799081d4f475301883d11e0';
+
+    // Ejemplo de uso de las funciones:
     buscaPrimero();
     buscaTodos();
-    buscaPorId(idBuscado);
+    buscaPorId('679149758be34bca122b2575');
     buscaPrecioMayor();
+    creaOrdenador('Apple', 3000);
+    actualizaOrdenador('679149758be34bca122b2575', 9000);
+    eliminaOrdenador('679149758be34bca122b2575');
+    insertaOrdenadores([
+      { marca: 'Asus', precio: 2800 },
+      { marca: 'Lenovo', precio: 2000 },
+    ]);
   })
   .catch(err => console.error('Connection error:', err));
